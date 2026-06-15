@@ -1,0 +1,20 @@
+LICENSE.md
+  s_8c5a41022923e3::t_aef06fb7cce2c6 139
+  s_8c5a41022923e3::t_032982b464e25c 1-138,140-201
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.7",
+  "base_commit_sha": "63b61e2c1b52232c1df7bd3652254b729de6f66b",
+  "prompts": {},
+  "sessions": {
+    "s_8c5a41022923e3": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_133f4e298ffeUe5pOxAvJQ3iVJ",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": null
+    }
+  }
+}
