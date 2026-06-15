@@ -1,0 +1,20 @@
+{
+  "name": "unstructured-foundation",
+  "interface": {
+    "displayName": "Unstructured Foundation"
+  },
+  "plugins": [
+    {
+      "name": "foundation",
+      "source": {
+        "source": "local",
+        "path": "./plugins/foundation"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

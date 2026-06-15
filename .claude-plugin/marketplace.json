@@ -1,0 +1,23 @@
+{
+  "name": "unstructured-foundation",
+  "owner": {
+    "name": "Unstructured"
+  },
+  "metadata": {
+    "description": "Connect sources and search processed documents with Unstructured Foundation"
+  },
+  "plugins": [
+    {
+      "name": "foundation",
+      "source": "./plugins/foundation",
+      "description": "Connect sources and search processed documents with Unstructured Foundation. Provides MCP access to source setup, processing status, document search, and document retrieval.",
+      "version": "0.1.0",
+      "author": {
+        "name": "Unstructured"
+      },
+      "license": "Apache-2.0",
+      "keywords": ["unstructured", "foundation", "documents", "sources", "search"],
+      "category": "Productivity"
+    }
+  ]
+}
