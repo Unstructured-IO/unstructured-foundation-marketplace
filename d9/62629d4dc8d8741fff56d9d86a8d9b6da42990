@@ -1,0 +1,24 @@
+LICENSE.md
+  s_8c5a41022923e3::t_032982b464e25c 1-138,140-201
+  s_8c5a41022923e3::t_3294578cb0530e 139
+plugins/foundation/skills/search/SKILL.md
+  s_8c5a41022923e3::t_06112da588eb3a 2-168
+README.md
+  s_8c5a41022923e3::t_3dd198971c3041 94-100
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.5.7",
+  "base_commit_sha": "d962629d4dc8d8741fff56d9d86a8d9b6da42990",
+  "prompts": {},
+  "sessions": {
+    "s_8c5a41022923e3": {
+      "agent_id": {
+        "tool": "opencode",
+        "id": "ses_133f4e298ffeUe5pOxAvJQ3iVJ",
+        "model": "claude-opus-4-7"
+      },
+      "human_author": null
+    }
+  }
+}
