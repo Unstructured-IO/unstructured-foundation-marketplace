@@ -14,6 +14,7 @@ Cover only these commands:
 
 - `/foundation:start`: Start here — check readiness and choose the best next step.
 - `/foundation:connect`: Connect a new data source.
+- `/foundation:search`: Tell Foundation what you want to find.
 - `/foundation:manage`: Open the dashboard to view, pause, resume, or remove connected sources.
 - `/foundation:help`: Show commands and example asks.
 
