@@ -24,6 +24,10 @@ Map status to the next step:
 
 When a search returns no useful matches, check readiness unless this was already done in the same flow. Do not tell the user that documents do not exist until the relevant processed data is ready.
 
+## Choosing The Right Tool
+
+`asset_query` is the front door for finding, filtering, listing, or enumerating documents — including broad "find all …" requests. `describe_corpus` answers *how many* / *what distribution* only (counts and breakdowns by source, type, or date); it never returns document identities or content, so don't use it to discover or enumerate documents. When unsure, start with `asset_query`.
+
 ## Search With `asset_query`
 
 Use `asset_query` to find documents. Required parameters are:
@@ -82,6 +86,14 @@ Filter guidance:
 - Use `metadata_filters={"platform_workflow_id": "<source-id>"}` to scope a search to a single specific connected source instance. The `<source-id>` is the source ID returned by `pipeline_list_sources` — the same value works directly as the `platform_workflow_id` metadata filter. This is an instance-level filter, not a type-level filter. Prefer it when the user has multiple sources of the same connector type, for example two different Google Drives, and wants just one of them. Use `lineage_data_source` when the user names a connector type broadly.
 - Prefer `text="*"` plus filters for requests like "show all PDFs from Dropbox" or "what was modified since Monday" when no keyword is provided.
 
+## Finding All Matching Documents
+
+`asset_query` already enumerates — don't page through the corpus, read every file, or ask the user to narrow just because the corpus is large.
+
+- Filter-expressible criteria (type, source, date, metadata): `asset_query(text="*", search_in=[...], ...)` with `mime_types` / `lineage_data_source` / date filters / `metadata_filters`. `text="*"` returns an unranked `filter_only` set; `search_in` is still required (one surface). Raise `limit` (default 20, max 10000); above 10000, add filters rather than paging.
+- Content criteria: search whichever surface fits — `document_text` for full text, `document_summary` / `topics` / `ner` for enriched discovery — to bucket matches, then fetch artifacts only on the ambiguous remainder.
+- Handle autonomously; ask the user to narrow only when the request is ambiguous or the set exceeds the single-call max. Don't fall back to `describe_corpus` (counts, not documents).
+
 ## Follow Up With `asset_doc_id`
 
 Search results include `asset_doc_id` values such as `adid:<uuid>`. Use `asset_doc_id` for all document follow-up calls.
@@ -120,6 +132,8 @@ For "summarize this/the latest/the matching document":
 3. If the generated summary is missing or too thin, use `asset_get_doc_text` and summarize from the text.
 
 For "what is searchable right now" or broad corpus counts:
+
+Counts/distribution only — for finding or enumerating documents (even "find all"), use `asset_query`.
 
 1. Use `pipeline_processing_status` first.
 2. If documents are ready and `describe_corpus` is available, use it for corpus-wide counts.
