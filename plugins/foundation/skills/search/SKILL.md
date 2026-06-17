@@ -24,6 +24,12 @@ Map status to the next step:
 
 When a search returns no useful matches, check readiness unless this was already done in the same flow. Do not tell the user that documents do not exist until the relevant processed data is ready.
 
+## Choosing The Right Tool
+
+`asset_query` is the front door for finding, filtering, listing, and enumerating documents. Use it for every request that needs to locate or return specific files, including broad "find all …" requests.
+
+`describe_corpus` answers *how many* and *what distribution* questions only — counts, coverage, and breakdowns by source, file type, or date. It never returns document identities or content. Do **not** use `describe_corpus` to discover, list, or enumerate documents; starting a document search there is an anti-pattern. When in doubt about which tool to reach for, start with `asset_query`.
+
 ## Search With `asset_query`
 
 Use `asset_query` to find documents. Required parameters are:
@@ -82,6 +88,15 @@ Filter guidance:
 - Use `metadata_filters={"platform_workflow_id": "<source-id>"}` to scope a search to a single specific connected source instance. The `<source-id>` is the source ID returned by `pipeline_list_sources` — the same value works directly as the `platform_workflow_id` metadata filter. This is an instance-level filter, not a type-level filter. Prefer it when the user has multiple sources of the same connector type, for example two different Google Drives, and wants just one of them. Use `lineage_data_source` when the user names a connector type broadly.
 - Prefer `text="*"` plus filters for requests like "show all PDFs from Dropbox" or "what was modified since Monday" when no keyword is provided.
 
+## Finding All Matching Documents
+
+For exhaustive "find all" requests, `asset_query` already enumerates — do not brute-force page through the corpus, do not read every file, and do not ask the user to choose between paging and narrowing just because the corpus is large.
+
+- When the "find all" criteria can be expressed as filters (file type, source, date, metadata), call `asset_query(text="*", search_in=["document_title"], ...)` with those filters, such as `mime_types`, `lineage_data_source`, the date filters, or `metadata_filters`. `search_in` is required even for match-all, so pass exactly one surface. With `text="*"`, the response is an unranked filtered enumeration rather than a ranked keyword sample, reported as `rank_provenance.method="filter_only"`. Raise `limit` (default 20) up to its maximum of 10000 to return the set in one call. If the filtered set exceeds 10000, ask the user to add filters to narrow scope rather than paging blindly.
+- When the criteria are about content rather than filters, run separate `asset_query` searches over the `document_summary` and `topics` surfaces (each call takes exactly one `search_in`) to bucket likely matches, then call `asset_get_artifact` or `asset_get_doc_text` only on the genuinely ambiguous remainder. Do not fetch every document's summary one by one.
+- Work through this autonomously and return the result. Ask the user to narrow scope only when the request is ambiguous or the filtered set exceeds the single-call maximum, not merely because the corpus is large.
+- Do not switch to `describe_corpus` for "find all"; it returns counts, never the documents.
+
 ## Follow Up With `asset_doc_id`
 
 Search results include `asset_doc_id` values such as `adid:<uuid>`. Use `asset_doc_id` for all document follow-up calls.
@@ -120,6 +135,8 @@ For "summarize this/the latest/the matching document":
 3. If the generated summary is missing or too thin, use `asset_get_doc_text` and summarize from the text.
 
 For "what is searchable right now" or broad corpus counts:
+
+Use `describe_corpus` here only because the user wants counts or a distribution, not a list of documents. If the request is to find, list, or enumerate documents (even "find all"), use `asset_query` instead.
 
 1. Use `pipeline_processing_status` first.
 2. If documents are ready and `describe_corpus` is available, use it for corpus-wide counts.
