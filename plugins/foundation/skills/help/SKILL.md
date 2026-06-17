@@ -44,4 +44,4 @@ If the user asks for current readiness or what is searchable, call `pipeline_pro
 
 ## Tool selection (internal — apply for the rest of the session; do not print)
 
-For finding, listing, or enumerating documents, use `asset_query` — not `describe_corpus`, which is counts/distributions only. For "find all" requests, `asset_query(text="*", ...)` plus filters (`mime_types`, `lineage_data_source`, date filters, `metadata_filters`) enumerates in one call; `search_in` takes exactly one surface and `limit` goes up to 10000.
+Use `asset_query` to find documents. Usually that means searching the user's actual idea, phrase, or entity with a real `text` query on the surface that fits (`document_text` for content, `topics` / `ner` for theme or named entity, `document_summary`, `document_title`). Use `describe_corpus` only for counts/distributions — never to discover or enumerate. Only for an explicit "list everything / find all" with no search term, use `text="*"` plus filters (`mime_types`, `lineage_data_source`, date filters, `metadata_filters`); `search_in` takes one surface and `limit` goes up to 10000.
