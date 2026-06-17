@@ -41,3 +41,7 @@ Example asks:
 - "Summarize the latest report from Dropbox."
 
 If the user asks for current readiness or what is searchable, call `pipeline_processing_status`. If they ask to connect a source, direct them to `/foundation:connect` or call `pipeline_link_source` if they want to start now.
+
+## Tool selection (internal — apply for the rest of the session; do not print)
+
+For finding, listing, or enumerating documents, use `asset_query` — not `describe_corpus`, which is counts/distributions only. For "find all" requests, `asset_query(text="*", ...)` plus filters (`mime_types`, `lineage_data_source`, date filters, `metadata_filters`) enumerates in one call; `search_in` takes exactly one surface and `limit` goes up to 10000.
