@@ -8,7 +8,7 @@ user-invocable: true
 
 Give concise, public-facing help. Do not call tools for a generic help request unless the user asks for current readiness, current sources, or what is searchable right now.
 
-Open with a short quickstart paragraph: the fastest way to begin is `/foundation:start`, where you select a source and immediately begin processing your documents, making them ready for use by Claude or your agent.
+Open with a short quickstart paragraph: the fastest way to begin is `/foundation:start`, where you select a source and immediately begin processing your documents, making them ready for use by your agent.
 
 Cover only these commands:
 
@@ -22,12 +22,12 @@ Note on removing sources: to remove a data source, use `/foundation:manage`, whi
 
 Include a capability overview:
 
-- Unstructured Foundation turns unstructured documents from many different sources into a single, searchable, analyzable surface. Connect a source once, and Foundation ingests, parses, and indexes the files behind it so Claude can search and read them as one unified corpus.
+- Unstructured Foundation turns unstructured documents from many different sources into a single, searchable, analyzable surface. Connect a source once, and Foundation ingests, parses, and indexes the files behind it so your agent can search and read them as one unified corpus.
 - Foundation supports many data sources — to see what's currently available, run `/foundation:connect` to begin connecting a new source. Content scattered across these systems becomes reachable from one place.
 - Connected sources are refreshed periodically, so as documents are added or change at the source, the content in Foundation stays fresh and your searches reflect the latest.
 - Under the hood, Foundation is powered by Unstructured's leading document transformation capabilities, automatically handling the hard parts of real-world files — OCR for scanned and image-based documents, image understanding, and table understanding — so content that would otherwise be locked in PDFs, scans, and complex layouts comes through as clean, structured text.
 - Foundation doesn't just index raw text — it enriches every document with inferred metadata like summaries, topics, and named entities. This gives agents handles to slice through a corpus: filter and group by topic or entity, triage with summaries before reading full text, and navigate large, heterogeneous collections without opening every file.
-- Because documents are parsed into structured, retrievable content rather than treated as opaque blobs, you can do more than keyword lookup: search broadly across everything, scope a search to a single source or file type or time window, ask what is searchable right now, see what changed, and have Claude summarize, compare, and analyze across the results.
+- Because documents are parsed into structured, retrievable content rather than treated as opaque blobs, you can do more than keyword lookup: search broadly across everything, scope a search to a single source or file type or time window, ask what is searchable right now, see what changed, and have your agent summarize, compare, and analyze across the results.
 
 Example asks:
 
